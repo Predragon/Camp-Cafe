@@ -15,7 +15,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Assemble site (app files only — menu.jpg and qr/ are not deployed)
         run: |
@@ -25,9 +25,18 @@ jobs:
           sed -i "s/const VERSION = '[^']*';/const VERSION = 'campcafe-${GITHUB_SHA::7}';/" dist/sw.js
           grep -q "campcafe-${GITHUB_SHA::7}" dist/sw.js
 
+      - name: Check secrets
+        env:
+          TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          [ -n "$TOKEN" ] || { echo "::error::Repo secret CLOUDFLARE_API_TOKEN is missing or empty (Settings > Secrets and variables > Actions > Repository secrets)"; exit 1; }
+          [ -n "$ACCOUNT" ] || { echo "::error::Repo secret CLOUDFLARE_ACCOUNT_ID is missing or empty"; exit 1; }
+
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: "4"
           command: pages deploy dist --project-name=camp-cafe --branch=main --commit-hash=${{ github.sha }}
