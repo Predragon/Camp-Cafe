@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Camp Cafe Menu</title>
+  <meta name="description" content="Camp Cafe — casual, gourmet, whole food dining. Browse the menu and build your order.">
+  <meta name="theme-color" content="#1f2a22">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <button class="share-btn" id="shareBtn" aria-label="Share menu">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13"/></svg>
+      <span>Share</span>
+    </button>
+    <svg class="hero-mark" viewBox="0 0 220 44" aria-hidden="true">
+      <g fill="currentColor">
+        <path d="M18 42 L26 10 L34 42Z M8 42 L14 20 L20 42Z M186 42 L194 12 L202 42Z M198 42 L204 22 L210 42Z"/>
+        <path d="M82 42 L110 6 L138 42Z" />
+        <path d="M104 42 L110 28 L116 42Z" fill="var(--forest)"/>
+        <path d="M136 42 L156 20 L166 30 L174 22 L190 42Z" opacity=".55"/>
+      </g>
+    </svg>
+    <h1>Camp Cafe</h1>
+    <p class="tagline">Casual · Gourmet · Whole Food Dining</p>
+  </header>
+
+  <nav class="cats" id="cats" aria-label="Menu sections"></nav>
+
+  <main id="menu"></main>
+
+  <section class="specials" id="specials">
+    <h2>Specials</h2>
+    <p>Ask for our <strong>Daily Special Menu</strong> &amp; <strong>Weekly or Monthly Meal Plans!</strong></p>
+  </section>
+
+  <footer class="foot">
+    <p>Fresh ingredients · Made to order</p>
+    <p>Healthy · Bespoke · Gourmet · Whole Food Dining</p>
+    <p><button class="link-btn" id="shareBtn2">Share this menu</button></p>
+    <p class="muted">Prices in Philippine Pesos (₱). “+” means starting price.</p>
+  </footer>
+
+  <button class="order-fab" id="orderFab" hidden>
+    <span>My order</span>
+    <span class="badge" id="orderCount">0</span>
+    <span class="fab-total" id="fabTotal"></span>
+  </button>
+
+  <dialog class="sheet share-sheet" id="shareSheet">
+    <div class="sheet-head">
+      <h2>Share the menu</h2>
+      <button class="icon-btn" data-close aria-label="Close">✕</button>
+    </div>
+    <div class="share-body">
+      <p class="muted">Let a friend scan this with their phone camera</p>
+      <img class="share-qr" src="img/qr.svg" alt="QR code linking to the Camp Cafe menu" width="260" height="260">
+      <p class="share-url" id="shareUrl"></p>
+    </div>
+    <div class="sheet-foot">
+      <div class="sheet-actions">
+        <button class="btn ghost" id="copyLink">Copy link</button>
+        <button class="btn" id="nativeShare">Send link…</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="sheet" id="orderSheet">
+    <div class="sheet-head">
+      <h2>My order</h2>
+      <button class="icon-btn" id="closeSheet" aria-label="Close">✕</button>
+    </div>
+    <ul class="order-list" id="orderList"></ul>
+    <div class="sheet-foot">
+      <div class="total-row"><span>Estimated total</span><strong id="orderTotal">₱0</strong></div>
+      <p class="muted small" id="orderNote"></p>
+      <div class="sheet-actions">
+        <button class="btn ghost" id="clearOrder">Clear</button>
+        <button class="btn" id="closeSheet2">Done</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
